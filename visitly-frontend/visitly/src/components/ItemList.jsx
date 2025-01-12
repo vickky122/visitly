@@ -18,7 +18,8 @@ const ItemList = () => {
       <ul>
         {items.map(item => (
           <li key={item.id}>
-            {item.name} - ${item.price}
+            {item.name} - ₹{item.price}
+            <p>{item.description}</p>
           </li>
         ))}
       </ul>
