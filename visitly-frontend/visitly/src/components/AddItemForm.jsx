@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { addItem } from '../services/api';
 
-const AddItemForm = () => {
+const AddItemForm = ({ onItemAdded }) => {
   const [item, setItem] = useState({ name: '', description: '', price: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addItem(item);
-    alert('Item added successfully!');
-    setItem({ name: '', description: '', price: '' });
+    try {
+      await addItem(item);
+      alert('Item added successfully!');
+      setItem({ name: '', description: '', price: '' });
+      onItemAdded(); // Notify parent to refresh the list
+    } catch (error) {
+      alert('Failed to add item. Please try again.');
+    }
   };
 
   return (
