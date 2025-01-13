@@ -11,3 +11,13 @@ export const addItem = async (item) => {
   const response = await axios.post(API_BASE_URL, item);
   return response.data;
 };
+
+export const deleteItem = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    throw error;
+  }
+};

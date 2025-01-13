@@ -13,7 +13,7 @@ const Footer = () => {
   };
 
   const containerStyle = {
-    minHeight: '70vh',
+    minHeight: '100vh',
     position: 'relative',
     paddingBottom: '50px', 
     boxSizing: 'border-box',
