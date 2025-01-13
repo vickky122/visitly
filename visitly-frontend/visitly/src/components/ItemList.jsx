@@ -5,7 +5,7 @@ const ItemList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchItems = async () => {                 
       const data = await getItems();
       setItems(data);
     };
