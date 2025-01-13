@@ -1,13 +1,12 @@
 package com.visitly.visitly.entity;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@EntityScan
+@Entity
 @Table(name = "users")
 public class User {
   @Id
@@ -49,5 +48,4 @@ public class User {
   public void setRole(String role) {
     this.role = role;
   }
-
 }
