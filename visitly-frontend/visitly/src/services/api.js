@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8090/api/items';
-const API_AUTH_URL = 'http://localhost:8090/api/auth/login'; 
+const API_AUTH_URL = 'http://localhost:8090/api/auth/login';
+const API_SIGNUP_URL = 'http://localhost:8090/api/auth/signup'; 
 
 export const getItems = async () => {
   const response = await axios.get(API_BASE_URL);
@@ -27,9 +28,29 @@ export const deleteItem = async (id) => {
 export const login = async (username, password) => {
   try {
     const response = await axios.post(API_AUTH_URL, { username, password });
-    return response.data;  
+    return response.data;  // JWT token
   } catch (error) {
     console.error('Error logging in:', error);
     throw error;
+  }
+};
+
+// Function to sign up a new user
+export const signup = async (username, password) => {
+  try {
+    const response = await axios.post(API_SIGNUP_URL, { username, password });
+    return response.data;  // Handle response after successful signup (e.g., user info or success message)
+  } catch (error) {
+    console.error('Error signing up:', error);
+    throw error;
+  }
+};
+
+// Function to set the token in the Authorization header
+export const setAuthToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common['Authorization'];
   }
 };
