@@ -1,5 +1,6 @@
 {
   "configurations": [
+
     {
       "type": "java",
       "name": "Spring Boot-VisitlyApplication<visitly>",
@@ -8,7 +9,7 @@
       "mainClass": "com.visitly.visitly.VisitlyApplication",
       "projectName": "visitly",
       "args": "",
-      "envFile": "${workspaceFolder}/.env"
+      "envFile": "${workspaceFolder}/.env",
     }
   ]
 }
