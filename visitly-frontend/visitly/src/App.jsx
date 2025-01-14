@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Footer from './components/Footer';
 
 const App = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user, isLoading, error } = useAuth0();
+  const { isAuthenticated, isLoading, error } = useAuth0();  // Using Auth0 hook
 
   // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -20,16 +20,6 @@ const App = () => {
         <Route path="/about" element={<About />} />
         {/* You can add more private routes later */}
       </Routes>
-      <div>
-        {!isAuthenticated ? (
-          <button onClick={() => loginWithRedirect()}>Log in</button>
-        ) : (
-          <div>
-            <p>Welcome, {user.name}</p>
-            <button onClick={() => logout({ returnTo: window.location.origin })}>Log out</button>
-          </div>
-        )}
-      </div>
       <Footer />
     </Router>
   );
