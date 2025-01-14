@@ -1,30 +1,45 @@
 package com.visitly.visitly.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.visitly.visitly.filter.JwtAuthenticationFilter;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-  @SuppressWarnings({ "removal", "deprecation" })
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+        .cors().and() // Enable CORS
+        .csrf().disable() // Disable CSRF for simplicity
         .authorizeRequests()
-        .requestMatchers("/login", "/home", "/about").permitAll()
-        .anyRequest().authenticated()
+        .requestMatchers("/login", "/home", "/about").permitAll() // Public endpoints
+        .anyRequest().authenticated() // Protect other endpoints
         .and()
         .oauth2Login()
         .loginPage("/login")
         .defaultSuccessUrl("/home", true);
     return http.build();
+  }
+
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // Frontend URL
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+    configuration.setAllowCredentials(true);
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 }

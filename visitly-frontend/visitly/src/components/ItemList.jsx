@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getItems, deleteItem } from '../services/api';
+import React, { useState, useEffect } from "react";
+import { getItems, deleteItem } from "../services/api";
+import "./ItemList.css"; // Assuming the CSS file is in the same folder
 
 const ItemList = ({ refresh }) => {
   const [items, setItems] = useState([]);
@@ -14,6 +15,7 @@ const ItemList = ({ refresh }) => {
       setItems(data);
     } catch (error) {
       console.error("Error fetching items:", error);
+      alert("Failed to fetch items. Please try again later.");
     }
   };
 
@@ -22,9 +24,10 @@ const ItemList = ({ refresh }) => {
     if (confirmed) {
       try {
         await deleteItem(id);
-        fetchItems(); 
+        fetchItems(); // Refresh the list after deletion
         alert("Item deleted successfully!");
       } catch (error) {
+        console.error("Error deleting item:", error);
         alert("Failed to delete the item. Please try again.");
       }
     }
@@ -42,15 +45,7 @@ const ItemList = ({ refresh }) => {
               <strong>{item.name}</strong> - {item.description} - ₹{item.price}
               <button
                 onClick={() => handleDelete(item.id)}
-                style={{
-                  marginLeft: '10px',
-                  backgroundColor: '#ff4d4d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  padding: '5px 10px',
-                  cursor: 'pointer',
-                }}
+                className="delete-button"
               >
                 Delete
               </button>
