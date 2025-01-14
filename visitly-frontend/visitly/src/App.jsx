@@ -3,21 +3,34 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
-// import Login from './pages/Login';
-// import Signup from './pages/Signup';
+import { useAuth0 } from '@auth0/auth0-react';
 import Footer from './components/Footer';
 
 const App = () => {
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading, error } = useAuth0();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        {/* <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} /> */}
+        {/* You can add more private routes later */}
       </Routes>
-      <Footer/>
+      <div>
+        {!isAuthenticated ? (
+          <button onClick={() => loginWithRedirect()}>Log in</button>
+        ) : (
+          <div>
+            <p>Welcome, {user.name}</p>
+            <button onClick={() => logout({ returnTo: window.location.origin })}>Log out</button>
+          </div>
+        )}
+      </div>
+      <Footer />
     </Router>
   );
 };
