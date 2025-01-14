@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 const App = () => {
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading, error } = useAuth0();
 
-  if (isLoading) return <div>Loading...</div>;
+  // if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   return (
