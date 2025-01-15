@@ -115,17 +115,29 @@ This project is a full-stack application that integrates a Spring Boot backend w
    mvn spring-boot:run
 
 Access the backend APIs at http://localhost:8090
+
+
 ####Frontend:
+
 Navigate to the frontend directory.
+
 Install dependencies:
+
 npm install
+
+
 Start the development server:
 npm run dev
+
 Open the application at http://localhost:5173
 Deployment
+
 Backend and frontend configured for production environments.
 Backend uses environment variables for sensitive credentials.
 Frontend deployed on Vercel, accessible at https://visitly-2ghj.vercel.app/.
+
+
 Author
-Vikrant Kumar
+
+Vikrant Kumar Yadav
 GitHub Repository
