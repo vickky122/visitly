@@ -24,7 +24,8 @@ const ItemList = ({ refresh }) => {
     if (confirmed) {
       try {
         await deleteItem(id);
-        fetchItems(); // Refresh the list after deletion
+        // Filter out the deleted item locally
+        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
         alert("Item deleted successfully!");
       } catch (error) {
         console.error("Error deleting item:", error);
